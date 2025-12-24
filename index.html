@@ -46,6 +46,16 @@
         }
         .sami-g-signature strong { font-size: 1.1rem; color: rgba(0,0,0,0.7); font-weight: 800; }
 
+        /* Sound Toggle Button */
+        .sound-toggle {
+            position: fixed; top: 20px; right: 20px;
+            background: white; border: 2px solid var(--light); border-radius: 50%;
+            width: 45px; height: 45px; display: flex; justify-content: center; align-items: center;
+            font-size: 1.2rem; cursor: pointer; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: 0.2s;
+        }
+        .sound-toggle:active { transform: scale(0.9); }
+
         /* Screens */
         .screen {
             position: fixed; inset: 0; background: white; z-index: 10;
@@ -167,9 +177,14 @@
         .fade-up { animation: fadeUp 0.8s forwards; }
         @keyframes fadeUp { 0% { opacity: 0; transform: translate(-50%, -20%); } 50% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -80%); } }
 
+        /* Confetti Canvas */
+        #confetti-canvas {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5;
+        }
+
         /* Result Screen */
-        .result-score { font-size: 5rem; font-weight: 900; color: var(--primary); margin: 20px 0; }
-        .high-score-tag { background: var(--gold); padding: 5px 15px; border-radius: 10px; font-weight: 700; color: #d35400; display: inline-block; margin-bottom: 10px; }
+        .result-score { font-size: 5rem; font-weight: 900; color: var(--primary); margin: 20px 0; z-index: 10; position: relative; }
+        .high-score-tag { background: var(--gold); padding: 5px 15px; border-radius: 10px; font-weight: 700; color: #d35400; display: inline-block; margin-bottom: 10px; z-index: 10; position: relative; }
 
         @media (max-width: 500px) {
             .title { font-size: 1.8rem; }
@@ -181,6 +196,10 @@
 <body class="mode-tablet"> <!-- Default Class -->
 
 <div class="sami-g-signature">This is a<br><strong>Sami G.</strong><br>production.</div>
+
+<button class="sound-toggle" onclick="toggleSound()" title="Ses Aç/Kapat">
+    <span id="sound-icon">🔊</span>
+</button>
 
 <!-- SETUP SCREEN -->
 <div id="setup-screen" class="screen">
@@ -270,14 +289,15 @@
 
 <!-- RESULT SCREEN -->
 <div id="result-screen" class="screen hidden">
-    <div style="font-size: 4rem;">🏆</div>
-    <h1 style="color:var(--dark);">Oyun Bitti!</h1>
+    <canvas id="confetti-canvas"></canvas>
+    <div style="font-size: 4rem; z-index:10; position:relative;">🏆</div>
+    <h1 style="color:var(--dark); z-index:10; position:relative;">Oyun Bitti!</h1>
     
     <div id="new-record-msg" class="hidden high-score-tag">YENİ REKOR! 🔥</div>
     
     <div class="result-score" id="final-score">0</div>
     
-    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; width:100%; max-width:400px; margin-bottom:20px;">
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; width:100%; max-width:400px; margin-bottom:20px; z-index:10; position:relative;">
         <div style="background:#f1f2f6; padding:15px; border-radius:15px; text-align:center;">
             <div class="stat-label">Doğru</div>
             <div style="font-weight:800; font-size:1.5rem; color:var(--success);" id="final-correct">0</div>
@@ -288,7 +308,7 @@
         </div>
     </div>
 
-    <button class="big-start-btn" style="max-width:300px;" onclick="resetApp()">TEKRAR OYNA</button>
+    <button class="big-start-btn" style="max-width:300px; z-index:10; position:relative;" onclick="resetApp()">TEKRAR OYNA</button>
 </div>
 
 <div id="overlay-feedback" class="overlay-msg">HARİKA!</div>
@@ -302,24 +322,88 @@
     // Load Local Best
     document.getElementById('local-best').textContent = localStorage.getItem('mathMasterBest') || 0;
 
+    // --- AUDIO SYSTEM ---
+    let soundEnabled = true;
+    let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playSound(type) {
+        if (!soundEnabled) return;
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+
+        const osc = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        osc.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        const now = audioCtx.currentTime;
+
+        if (type === 'click') {
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(800, now);
+            osc.frequency.exponentialRampToValueAtTime(300, now + 0.05);
+            gainNode.gain.setValueAtTime(0.05, now);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+            osc.start(now);
+            osc.stop(now + 0.05);
+        } else if (type === 'correct') {
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(400, now);
+            osc.frequency.exponentialRampToValueAtTime(800, now + 0.1);
+            gainNode.gain.setValueAtTime(0.1, now);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+            osc.start(now);
+            osc.stop(now + 0.3);
+        } else if (type === 'wrong') {
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(200, now);
+            osc.frequency.linearRampToValueAtTime(100, now + 0.2);
+            gainNode.gain.setValueAtTime(0.1, now);
+            gainNode.gain.linearRampToValueAtTime(0.01, now + 0.2);
+            osc.start(now);
+            osc.stop(now + 0.2);
+        } else if (type === 'gameover') {
+             // Simple Game Over Chord
+            [300, 250, 200].forEach((freq, i) => {
+                const o = audioCtx.createOscillator();
+                const g = audioCtx.createGain();
+                o.connect(g);
+                g.connect(audioCtx.destination);
+                o.type = 'triangle';
+                o.frequency.value = freq;
+                g.gain.setValueAtTime(0.1, now + i*0.2);
+                g.gain.exponentialRampToValueAtTime(0.001, now + i*0.2 + 0.5);
+                o.start(now + i*0.2);
+                o.stop(now + i*0.2 + 0.5);
+            });
+        }
+    }
+
+    function toggleSound() {
+        soundEnabled = !soundEnabled;
+        document.getElementById('sound-icon').textContent = soundEnabled ? '🔊' : '🔇';
+    }
+
     // --- SETUP FUNCTIONS ---
     function setDevice(dev, btn) {
+        playSound('click');
         config.device = dev;
         document.body.className = `mode-${dev}`;
         updateBtnGroup(btn);
     }
 
     function setMode(m, btn) {
+        playSound('click');
         config.mode = m;
         updateBtnGroup(btn);
     }
 
     function setDiff(d, btn) {
+        playSound('click');
         config.diff = d;
         updateBtnGroup(btn);
     }
 
     function toggleOp(op, btn) {
+        playSound('click');
         if (config.ops.includes(op)) {
             if (config.ops.length > 1) {
                 config.ops = config.ops.filter(o => o !== op);
@@ -339,6 +423,9 @@
 
     // --- GAME LOGIC ---
     function startGame() {
+        if (soundEnabled && audioCtx.state === 'suspended') audioCtx.resume();
+        playSound('correct');
+        
         state = { score: 0, time: config.mode === 'time' ? 60 : 20, active: true, input: '', streak: 0, correct: 0, wrong: 0 };
         
         document.getElementById('setup-screen').classList.add('hidden');
@@ -389,6 +476,7 @@
 
     function input(val) {
         if (!state.active) return;
+        playSound('click');
         if (val === 'del') state.input = '';
         else if (state.input.length < 5) state.input += val;
         updateInputDisplay();
@@ -407,6 +495,7 @@
         
         if (val === state.currentQ.ans) {
             // Correct
+            playSound('correct');
             state.correct++;
             state.streak++;
             
@@ -426,6 +515,7 @@
 
         } else {
             // Wrong
+            playSound('wrong');
             state.streak = 0;
             state.wrong++;
             if (config.mode === 'survival') state.time = Math.max(0, state.time - 5); // Penalty in survival
@@ -484,6 +574,7 @@
     function endGame() {
         clearInterval(timerInterval);
         state.active = false;
+        playSound('gameover');
         
         // Check High Score
         const oldBest = parseInt(localStorage.getItem('mathMasterBest') || 0);
@@ -491,6 +582,7 @@
         if (isNewRecord) {
             localStorage.setItem('mathMasterBest', state.score);
             document.getElementById('new-record-msg').classList.remove('hidden');
+            startConfetti();
         } else {
             document.getElementById('new-record-msg').classList.add('hidden');
         }
@@ -508,6 +600,60 @@
         document.getElementById('setup-screen').classList.remove('hidden');
         document.getElementById('local-best').textContent = localStorage.getItem('mathMasterBest') || 0;
         document.body.style.backgroundColor = "#fdfbf7";
+        stopConfetti();
+    }
+
+    // --- CONFETTI SYSTEM ---
+    let confettiActive = false;
+    let confettiAnim;
+    function startConfetti() {
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const pieces = [];
+        const colors = ['#f1c40f', '#e74c3c', '#3498db', '#9b59b6', '#2ecc71', '#ff9ff3'];
+        for(let i=0; i<150; i++) {
+            pieces.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height - canvas.height,
+                w: Math.random() * 10 + 5,
+                h: Math.random() * 10 + 5,
+                c: colors[Math.floor(Math.random() * colors.length)],
+                s: Math.random() * 5 + 2,
+                a: Math.random() * Math.PI * 2
+            });
+        }
+        
+        confettiActive = true;
+        function loop() {
+            if(!confettiActive) return;
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            pieces.forEach(p => {
+                p.y += p.s;
+                p.a += 0.05;
+                if(p.y > canvas.height) p.y = -20;
+                
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.a);
+                ctx.fillStyle = p.c;
+                ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+                ctx.restore();
+            });
+            confettiAnim = requestAnimationFrame(loop);
+        }
+        loop();
+    }
+    function stopConfetti() {
+        confettiActive = false;
+        cancelAnimationFrame(confettiAnim);
+        const canvas = document.getElementById('confetti-canvas');
+        if(canvas) {
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+        }
     }
 </script>
 </body>
