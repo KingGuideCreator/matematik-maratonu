@@ -17,6 +17,8 @@
             --danger: #d63031;
             --gold: #fab1a0;
             --warn: #ffeaa7;
+            --pas-color: #e17055;
+            --ice: #74b9ff;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
@@ -34,72 +36,114 @@
         }
 
         /* DEVICE MODES CSS VARIABLES */
-        body.mode-phone { --btn-size: 60px; --font-base: 16px; --numpad-gap: 8px; }
-        body.mode-tablet { --btn-size: 80px; --font-base: 20px; --numpad-gap: 12px; }
-        body.mode-board { --btn-size: 110px; --font-base: 28px; --numpad-gap: 20px; }
+        body.mode-phone { --btn-size: 55px; --font-base: 16px; --numpad-gap: 8px; }
+        body.mode-tablet { --btn-size: 75px; --font-base: 20px; --numpad-gap: 12px; }
+        body.mode-board { --btn-size: 100px; --font-base: 28px; --numpad-gap: 20px; }
 
         /* Sami G. Signature */
         .sami-g-signature {
             position: fixed; bottom: 15px; right: 20px;
-            font-size: 0.9rem; color: rgba(0,0,0,0.4);
+            font-size: 0.8rem; color: rgba(0,0,0,0.3);
             z-index: 9999; pointer-events: none; text-align: right; line-height: 1.2;
+            font-family: 'Poppins', sans-serif;
         }
-        .sami-g-signature strong { font-size: 1.1rem; color: rgba(0,0,0,0.7); font-weight: 800; }
+        .sami-g-signature strong { font-size: 1rem; color: rgba(0,0,0,0.5); font-weight: 800; }
 
         /* Sound Toggle Button */
         .sound-toggle {
-            position: fixed; top: 20px; right: 20px;
+            position: fixed; top: 15px; right: 15px;
             background: white; border: 2px solid var(--light); border-radius: 50%;
-            width: 45px; height: 45px; display: flex; justify-content: center; align-items: center;
+            width: 40px; height: 40px; display: flex; justify-content: center; align-items: center;
             font-size: 1.2rem; cursor: pointer; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             transition: 0.2s;
         }
         .sound-toggle:active { transform: scale(0.9); }
 
-        /* Screens */
+        /* Screens & Transitions */
         .screen {
             position: fixed; inset: 0; background: white; z-index: 10;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            padding: 20px; overflow-y: auto; transition: opacity 0.3s;
+            padding: 20px; overflow-y: auto; 
+            opacity: 1; transition: opacity 0.4s ease-in-out;
         }
         .hidden { display: none !important; opacity: 0; }
+        .fade-out { opacity: 0; pointer-events: none; }
 
-        /* Setup Screen */
+        /* Setup Screen & Cards */
         .setup-card {
-            background: #fff; padding: 30px; border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1); width: 100%; max-width: 650px; text-align: center;
+            background: #fff; padding: 25px; border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1); width: 100%; max-width: 600px; text-align: center;
             border: 4px solid var(--light);
+            max-height: 95vh; overflow-y: auto; position: relative;
         }
-        .title { font-size: 2.5rem; font-weight: 900; color: var(--primary); margin-bottom: 20px; letter-spacing: -1px; }
+        .title { font-size: 2.2rem; font-weight: 900; color: var(--primary); margin-bottom: 10px; letter-spacing: -1px; }
         
-        .section-label { font-weight: 700; color: #b2bec3; display: block; margin: 15px 0 8px; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
+        .section-label { font-weight: 700; color: #b2bec3; display: block; margin: 12px 0 6px; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
         
-        .btn-group { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+        .btn-group { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
         .setup-btn {
-            flex: 1; min-width: 80px; padding: 12px; border: 2px solid var(--light);
-            background: white; border-radius: 15px; font-weight: 700; cursor: pointer;
-            transition: 0.2s; font-family: inherit; color: var(--dark);
+            flex: 1; min-width: 70px; padding: 10px; border: 2px solid var(--light);
+            background: white; border-radius: 12px; font-weight: 700; cursor: pointer;
+            transition: 0.2s; font-family: inherit; color: var(--dark); font-size: 0.9rem;
         }
-        .setup-btn.active { background: var(--primary); color: white; border-color: var(--primary); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3); }
+        .setup-btn.active { background: var(--primary); color: white; border-color: var(--primary); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(108, 92, 231, 0.3); }
 
         .big-start-btn {
-            width: 100%; padding: 20px; background: var(--success); color: white;
-            border: none; border-radius: 20px; font-size: 1.5rem; font-weight: 800;
-            margin-top: 25px; cursor: pointer; box-shadow: 0 8px 0 #00a884; transition: 0.1s;
+            width: 100%; padding: 18px; background: var(--success); color: white;
+            border: none; border-radius: 18px; font-size: 1.4rem; font-weight: 800;
+            margin-top: 20px; cursor: pointer; box-shadow: 0 6px 0 #00a884; transition: 0.1s;
         }
         .big-start-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #00a884; }
 
+        .secondary-btn {
+            background: var(--light); color: var(--dark); box-shadow: 0 6px 0 #b2bec3;
+        }
+        .secondary-btn:active { box-shadow: 0 2px 0 #b2bec3; }
+
+        /* Mode Explanation Toast */
+        .mode-toast {
+            background: var(--dark); color: white; padding: 8px 16px; border-radius: 20px;
+            font-size: 0.85rem; margin-top: 10px; opacity: 0; transition: opacity 0.3s;
+            position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 400px; pointer-events: none; z-index: 20;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .mode-toast.show { opacity: 1; }
+
         /* Stats Bar (Top) */
         #game-header {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 5%; background: rgba(255,255,255,0.8); backdrop-filter: blur(10px);
+            display: grid; grid-template-columns: auto 1fr auto; gap: 15px; align-items: center;
+            padding: 10px 15px; background: rgba(255,255,255,0.8); backdrop-filter: blur(10px);
             border-bottom: 2px solid rgba(0,0,0,0.05); height: 80px; width: 100%; z-index: 5;
         }
-        .stat-box { text-align: center; }
-        .stat-label { font-size: 0.7rem; font-weight: 700; color: #b2bec3; text-transform: uppercase; }
-        .stat-val { font-size: 1.8rem; font-weight: 800; color: var(--dark); line-height: 1; }
-        .score-val { color: var(--primary); }
-        .time-val { color: var(--danger); width: 80px; }
+        .header-controls { display: flex; gap: 10px; }
+        
+        /* Modern Icon Buttons */
+        .modern-icon-btn { 
+            width: 45px; height: 45px; border-radius: 15px; border: none; font-size: 1.2rem; 
+            cursor: pointer; background: white; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 0 var(--light); color: var(--dark); transition: 0.1s; border: 1px solid var(--light);
+        }
+        .modern-icon-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--light); }
+        .modern-icon-btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+        .progress-container {
+            width: 100%; display: flex; flex-direction: column; align-items: center;
+        }
+        .progress-track {
+            width: 100%; max-width: 300px; height: 12px; background: #dfe6e9; 
+            border-radius: 10px; overflow: hidden; position: relative;
+        }
+        .progress-fill {
+            height: 100%; background: linear-gradient(90deg, var(--secondary), var(--primary)); 
+            width: 0%; transition: width 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .level-badge { font-size: 0.75rem; font-weight: 800; color: var(--primary); margin-bottom: 2px; }
+
+        .score-box { 
+            background: var(--primary); color: white; padding: 5px 15px; border-radius: 10px; 
+            font-weight: 800; font-size: 1.2rem; min-width: 60px; text-align: center;
+        }
 
         /* Main Game Area */
         #game-area {
@@ -109,128 +153,198 @@
 
         /* Question Bubble */
         .question-container {
-            background: var(--dark); color: white; padding: 20px 40px; border-radius: 30px;
-            margin-bottom: 20px; text-align: center; position: relative;
+            background: var(--dark); color: white; padding: 15px 30px; border-radius: 30px;
+            margin-bottom: 15px; text-align: center; position: relative;
             box-shadow: 0 15px 40px rgba(45, 52, 54, 0.3);
             transform: scale(1); transition: transform 0.2s;
-            width: 90%;
+            width: 90%; max-width: 500px;
         }
-        .question-text { font-size: 3.5rem; font-weight: 800; letter-spacing: 2px; }
+        .question-text { font-size: 3rem; font-weight: 800; letter-spacing: 2px; line-height: 1.2; }
         
         .answer-preview {
-            height: 60px; margin-top: 15px; background: rgba(255,255,255,0.15);
+            height: 50px; margin-top: 10px; background: rgba(255,255,255,0.15);
             border-radius: 15px; display: flex; align-items: center; justify-content: center;
-            font-size: 2.5rem; font-weight: 700; color: #81ecec; border: 2px dashed rgba(255,255,255,0.3);
+            font-size: 2.2rem; font-weight: 700; color: #81ecec; border: 2px dashed rgba(255,255,255,0.3);
         }
 
         /* Streak Counter */
         .streak-container {
-            position: absolute; top: -20px; right: -10px; background: var(--accent);
-            color: white; padding: 5px 15px; border-radius: 20px; font-weight: 800;
-            font-size: 0.9rem; transform: rotate(10deg); opacity: 0; transition: 0.3s;
+            position: absolute; top: -15px; right: -5px; background: var(--accent);
+            color: white; padding: 4px 12px; border-radius: 20px; font-weight: 800;
+            font-size: 0.8rem; transform: rotate(10deg); opacity: 0; transition: 0.3s;
             box-shadow: 0 5px 15px rgba(253, 121, 168, 0.4); pointer-events: none;
         }
         .streak-active { opacity: 1; animation: bounce 0.5s infinite alternate; }
 
-        /* Level / Progress Indicator */
-        .level-indicator {
-            position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
-            font-size: 0.9rem; font-weight: 700; color: rgba(0,0,0,0.4);
-            background: rgba(255,255,255,0.5); padding: 5px 15px; border-radius: 20px;
-        }
-
         /* Numpad */
         .numpad {
             display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: var(--numpad-gap); width: 100%; max-width: 500px;
+            gap: var(--numpad-gap); width: 100%; max-width: 450px;
+            transition: 0.3s;
         }
         
+        /* Frozen State for Numpad ONLY */
+        .numpad.frozen-pad {
+            opacity: 0.4;
+            filter: grayscale(1);
+            pointer-events: none;
+            transform: scale(0.98);
+        }
+
         .btn {
-            height: var(--btn-size); border: none; border-radius: 20px;
+            height: var(--btn-size); border: none; border-radius: 18px;
             font-size: calc(var(--font-base) * 1.5); font-weight: 700; cursor: pointer;
-            background: white; color: var(--dark); box-shadow: 0 6px 0 var(--light);
+            background: white; color: var(--dark); box-shadow: 0 5px 0 var(--light);
             transition: 0.1s; display: flex; align-items: center; justify-content: center;
         }
-        .btn:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--light); background: #f1f2f6; }
+        .btn:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--light); background: #f1f2f6; }
         
-        .btn-act { background: var(--secondary); color: white; box-shadow: 0 6px 0 #00b894; }
-        .btn-act:active { box-shadow: 0 2px 0 #00b894; }
-
-        .btn-del { background: var(--danger); color: white; box-shadow: 0 6px 0 #c0392b; }
+        .btn-del { background: var(--danger); color: white; box-shadow: 0 5px 0 #c0392b; font-size: 1rem; font-weight: 800; letter-spacing: 1px; }
         .btn-del:active { box-shadow: 0 2px 0 #c0392b; }
 
-        .btn-zero { grid-column: span 2; }
+        .btn-pas { background: var(--pas-color); color: white; box-shadow: 0 5px 0 #bf5e46; font-size: 1rem; flex-direction: column; line-height: 1; gap: 4px; }
+        .btn-pas:active { box-shadow: 0 2px 0 #bf5e46; }
+        .pas-dots { display: flex; gap: 3px; }
+        .pas-dot { width: 6px; height: 6px; background: rgba(255,255,255,0.4); border-radius: 50%; }
+        .pas-dot.active { background: white; }
 
-        /* Animations */
+        /* Submit Button */
+        .submit-area { width: 100%; max-width: 450px; display: grid; grid-template-columns: 1fr; margin-top: 15px; }
+        .btn-submit { 
+            background: var(--success); color: white; height: 65px; border-radius: 20px;
+            font-size: 1.8rem; font-weight: 800; border: none; box-shadow: 0 6px 0 #009476; cursor: pointer;
+        }
+        .btn-submit:active { transform: translateY(4px); box-shadow: 0 2px 0 #009476; }
+
+        /* Effects */
+        .overlay-msg {
+            position: fixed; top: 40%; left: 50%; transform: translate(-50%, -50%);
+            font-size: 3.5rem; font-weight: 900; color: var(--success); text-shadow: 0 5px 20px rgba(255,255,255,0.8);
+            z-index: 100; pointer-events: none; opacity: 0; background: rgba(255,255,255,0.9);
+            padding: 10px 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); white-space: nowrap;
+        }
+        .fade-up { animation: fadeUp 1s forwards; }
+        @keyframes fadeUp { 0% { opacity: 0; transform: translate(-50%, -20%) scale(0.8); } 20% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); } 80% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0; transform: translate(-50%, -80%); } }
+
+        /* Stats Screen */
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; margin-top: 20px; }
+        .stat-card { background: #f8f9fa; padding: 15px; border-radius: 15px; border: 2px solid #eee; text-align: center; display:flex; flex-direction:column; justify-content:center; align-items:center; }
+        .stat-card h3 { font-size: 0.8rem; color: #b2bec3; margin-bottom: 5px; text-transform: uppercase; }
+        .stat-card p { font-size: 1.5rem; font-weight: 800; color: var(--dark); margin: 0; }
+        .stat-icon { font-size: 1.5rem; margin-bottom: 5px; display:block; }
+
+        /* Modal (Pause / Ready) */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px);
+            z-index: 2000; display: flex; align-items: center; justify-content: center;
+        }
+
+        /* Countdown Overlay */
+        #countdown-overlay {
+            position: fixed; inset: 0; background: rgba(255,255,255,0.9); z-index: 3000;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 8rem; font-weight: 900; color: var(--primary);
+        }
+
+        /* Intro Screen Features */
+        .intro-features { display: grid; grid-template-columns: 1fr 1fr; gap:10px; margin: 20px 0; }
+        .intro-feat { background: #f1f2f6; padding: 15px; border-radius: 15px; text-align: center; font-size: 0.9rem; }
+        .intro-icon { font-size: 2rem; display: block; margin-bottom: 5px; }
+        
+        /* Educational Tip */
+        .edu-tip {
+            background: #fff3e0; border: 2px dashed #ffe0b2; padding: 10px; border-radius: 15px;
+            font-size: 0.85rem; color: #e67e22; margin-top: 15px; text-align: left;
+        }
+
+        /* Result Screen */
+        .result-score { font-size: 4rem; font-weight: 900; color: var(--primary); margin: 10px 0; z-index: 10; position: relative; }
+        
         @keyframes bounce { from { transform: rotate(10deg) scale(1); } to { transform: rotate(10deg) scale(1.1); } }
         @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
         .shake { animation: shake 0.3s; }
         .pop { animation: pop 0.2s; }
         @keyframes pop { 50% { transform: scale(1.05); } }
 
-        /* Effects */
-        .overlay-msg {
-            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            font-size: 4rem; font-weight: 900; color: var(--success); text-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            z-index: 100; pointer-events: none; opacity: 0;
-        }
-        .fade-up { animation: fadeUp 0.8s forwards; }
-        @keyframes fadeUp { 0% { opacity: 0; transform: translate(-50%, -20%); } 50% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -80%); } }
-
-        /* Confetti Canvas */
-        #confetti-canvas {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5;
-        }
-
-        /* Result Screen */
-        .result-score { font-size: 5rem; font-weight: 900; color: var(--primary); margin: 20px 0; z-index: 10; position: relative; }
-        .high-score-tag { background: var(--gold); padding: 5px 15px; border-radius: 10px; font-weight: 700; color: #d35400; display: inline-block; margin-bottom: 10px; z-index: 10; position: relative; }
-
         @media (max-width: 500px) {
             .title { font-size: 1.8rem; }
-            .question-text { font-size: 2.5rem; }
-            .stat-val { font-size: 1.4rem; }
+            .question-text { font-size: 2.2rem; }
+            .btn-submit { height: 55px; font-size: 1.5rem; }
         }
     </style>
 </head>
-<body class="mode-tablet"> <!-- Default Class -->
+<body class="mode-tablet">
 
+<!-- Signature -->
 <div class="sami-g-signature">This is a<br><strong>Sami G.</strong><br>production.</div>
 
 <button class="sound-toggle" onclick="toggleSound()" title="Ses Aç/Kapat">
     <span id="sound-icon">🔊</span>
 </button>
 
-<!-- SETUP SCREEN -->
-<div id="setup-screen" class="screen">
+<!-- INTRO SCREEN (FIRST LOAD) -->
+<div id="intro-screen" class="screen">
     <div class="setup-card">
-        <h1 class="title">Matematik Ustası</h1>
-        <div style="font-size: 0.9rem; color: #636e72; margin-bottom: 20px;">Kendi rekorunu kır, seviyeleri atla!</div>
+        <div style="font-size: 3rem; margin-bottom: 10px;">🎓</div>
+        <h1 class="title">Hoş Geldin!</h1>
+        <p style="color: #636e72; margin-bottom: 15px; font-size: 1.1rem; line-height: 1.5;">
+            Matematik Ustası ile eğlenerek öğrenmeye hazır mısın?
+        </p>
         
-        <!-- Cihaz Seçimi -->
+        <div class="intro-features">
+            <div class="intro-feat">
+                <span class="intro-icon">🚀</span>
+                <strong>Hızlan</strong>
+            </div>
+            <div class="intro-feat">
+                <span class="intro-icon">⭐</span>
+                <strong>Yüksel</strong>
+            </div>
+            <div class="intro-feat">
+                <span class="intro-icon">🧊</span>
+                <strong>Donma!</strong>
+            </div>
+            <div class="intro-feat">
+                <span class="intro-icon">🏆</span>
+                <strong>Kazan</strong>
+            </div>
+        </div>
+
+        <div class="edu-tip">
+            <strong>💡 Günün Bilgisi:</strong> <span id="daily-fact">Sıfır rakamı tarihte ilk kez Hindistan'da kullanılmıştır!</span>
+        </div>
+
+        <button class="big-start-btn" onclick="switchScreen('intro-screen', 'setup-screen')">BAŞLAYALIM!</button>
+    </div>
+</div>
+
+<!-- SETUP SCREEN -->
+<div id="setup-screen" class="screen hidden">
+    <div class="setup-card">
+        <h1 class="title">Ayarlar</h1>
+        <div style="font-size: 0.9rem; color: #636e72; margin-bottom: 15px;">Kendi maceranı kendin seç!</div>
+        
         <span class="section-label">Cihaz Modu</span>
         <div class="btn-group">
             <button class="setup-btn" onclick="setDevice('phone', this)">📱 Telefon</button>
             <button class="setup-btn active" onclick="setDevice('tablet', this)">📲 Tablet</button>
-            <button class="setup-btn" onclick="setDevice('board', this)">🖥️ Akıllı Tahta</button>
+            <button class="setup-btn" onclick="setDevice('board', this)">🖥️ Tahta</button>
         </div>
 
-        <!-- Oyun Modu -->
         <span class="section-label">Oyun Modu</span>
         <div class="btn-group">
-            <button class="setup-btn active" onclick="setMode('time', this)">⏱️ Zamanlı (60sn)</button>
-            <button class="setup-btn" onclick="setMode('survival', this)">🔥 Survival (Ek Süre)</button>
+            <button class="setup-btn active" onclick="setMode('time', this)">⏱️ 60sn</button>
+            <button class="setup-btn" onclick="setMode('count', this)">📝 20 Soru</button>
+            <button class="setup-btn" onclick="setMode('survival', this)">🔥 Survival</button>
         </div>
-
-        <!-- Zorluk -->
-        <span class="section-label">Zorluk Seviyesi</span>
+        
+        <span class="section-label">Zorluk</span>
         <div class="btn-group">
             <button class="setup-btn active" onclick="setDiff(1, this)">Kolay</button>
             <button class="setup-btn" onclick="setDiff(2, this)">Orta</button>
             <button class="setup-btn" onclick="setDiff(3, this)">Zor</button>
         </div>
 
-        <!-- İşlemler -->
         <span class="section-label">İşlemler</span>
         <div class="btn-group">
             <button class="setup-btn active op-btn" onclick="toggleOp('+', this)">+</button>
@@ -239,61 +353,150 @@
             <button class="setup-btn op-btn" onclick="toggleOp('/', this)">÷</button>
         </div>
 
-        <button class="big-start-btn" onclick="startGame()">BAŞLA</button>
-        <div style="margin-top:15px; font-size:0.8rem; color:#b2bec3;">En İyi Skorunuz: <span id="local-best">0</span></div>
+        <button class="big-start-btn" onclick="prepareGame()">BAŞLA</button>
+        <button class="big-start-btn secondary-btn" style="margin-top:10px; background:white;" onclick="showStats()">🏅 BAŞARILARIM</button>
+
+        <div id="mode-toast" class="mode-toast">En çok doğruyu 60 saniyede yapmaya çalış!</div>
+    </div>
+</div>
+
+<!-- READY SCREEN (INSTRUCTIONS) -->
+<div id="ready-screen" class="screen hidden" style="background: rgba(108, 92, 231, 0.1);">
+    <div class="setup-card">
+        <h2 class="title">Hazır Mısın?</h2>
+        <div style="text-align: left; background: #f1f2f6; padding: 20px; border-radius: 20px; margin: 20px 0;">
+            <div style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 1.5rem;">✅</span> Doğru cevaplar sana puan ve seri kazandırır.
+            </div>
+            <div style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 1.5rem;">🧊</span> Yanlış cevap verirsen <strong>TUŞLAR DONAR!</strong>
+            </div>
+            <div style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 1.5rem;">⏭️</span> Zorlanırsan <strong>PAS</strong> hakkını kullan.
+            </div>
+        </div>
+        <button class="big-start-btn" style="background: var(--primary);" onclick="startCountdown()">HAZIRIM!</button>
+    </div>
+</div>
+
+<!-- COUNTDOWN OVERLAY -->
+<div id="countdown-overlay" class="hidden">3</div>
+
+<!-- STATS SCREEN -->
+<div id="stats-screen" class="screen hidden">
+    <div class="setup-card">
+        <h2 class="title" style="color:var(--dark)">🏅 Başarılarım</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-icon">🎮</span>
+                <h3>Toplam Oyun</h3>
+                <p id="stat-total-games">0</p>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">🏆</span>
+                <h3>En Yüksek Puan</h3>
+                <p id="stat-high-score" style="color:var(--gold)">0</p>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">✅</span>
+                <h3>Toplam Doğru</h3>
+                <p id="stat-total-correct" style="color:var(--success)">0</p>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">⏳</span>
+                <h3>Toplam Süre</h3>
+                <p id="stat-total-time" style="font-size:1.1rem; color:var(--primary)">0s</p>
+            </div>
+        </div>
+        <button class="big-start-btn" onclick="switchScreen('stats-screen', 'setup-screen')">GERİ DÖN</button>
     </div>
 </div>
 
 <!-- GAME SCREEN -->
 <div id="game-screen" class="screen hidden" style="background: transparent;">
     <div id="game-header">
-        <div class="stat-box">
-            <div class="stat-label">Skor</div>
-            <div class="stat-val score-val" id="score-display">0</div>
+        <div class="header-controls">
+            <button class="modern-icon-btn" onclick="confirmHome()" title="Ana Sayfa">
+                <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            </button>
+            <button class="modern-icon-btn" onclick="togglePause()" title="Duraklat">
+                <svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+            </button>
         </div>
-        <div class="stat-box">
-            <div class="stat-label">Mod</div>
-            <div id="mode-icon" style="font-size: 1.5rem;">⏱️</div>
+        
+        <div class="progress-container">
+            <div class="level-badge" id="level-txt">Seviye 1</div>
+            <div class="progress-track">
+                <div class="progress-fill" id="progress-bar"></div>
+            </div>
         </div>
-        <div class="stat-box">
-            <div class="stat-label">Süre</div>
-            <div class="stat-val time-val" id="time-display">60</div>
+
+        <div class="score-box">
+            <div style="font-size:0.6rem; opacity:0.8;">PUAN</div>
+            <div id="score-display">0</div>
         </div>
     </div>
 
     <div id="game-area">
-        <div class="level-indicator" id="level-display">Seviye 1: Atmosfer</div>
-        
+        <!-- Zamanlayıcı Göstergesi -->
+        <div style="margin-bottom:10px; font-weight:700; color:#b2bec3; display:flex; gap:5px; align-items:center;">
+             <span id="mode-icon-display">⏱️</span> <span id="time-display">60</span>
+        </div>
+
         <div class="question-container" id="q-container">
             <div class="streak-container" id="streak-badge">x2 SERİ!</div>
             <div class="question-text" id="q-text">2 + 2</div>
             <div class="answer-preview" id="ans-preview"></div>
         </div>
 
-        <div class="numpad">
+        <div class="numpad" id="numpad-area">
+            <!-- Row 1 -->
             <button class="btn" onclick="input(7)">7</button>
             <button class="btn" onclick="input(8)">8</button>
             <button class="btn" onclick="input(9)">9</button>
+            <!-- Row 2 -->
             <button class="btn" onclick="input(4)">4</button>
             <button class="btn" onclick="input(5)">5</button>
             <button class="btn" onclick="input(6)">6</button>
+            <!-- Row 3 -->
             <button class="btn" onclick="input(1)">1</button>
             <button class="btn" onclick="input(2)">2</button>
             <button class="btn" onclick="input(3)">3</button>
-            <button class="btn btn-del" onclick="input('del')">Sil</button>
-            <button class="btn btn-zero" onclick="input(0)">0</button>
+            <!-- Row 4 -->
+            <button class="btn btn-del" onclick="input('del')">SİL</button>
+            <button class="btn" onclick="input(0)">0</button>
+            <button class="btn btn-pas" id="btn-pas" onclick="passQuestion()">
+                <span>PAS</span>
+                <div class="pas-dots" id="pas-dots">
+                    <div class="pas-dot active"></div>
+                    <div class="pas-dot active"></div>
+                    <div class="pas-dot active"></div>
+                </div>
+            </button>
         </div>
-        <button class="big-start-btn" style="margin-top:20px; max-width:500px;" onclick="checkAnswer()">CEVAPLA</button>
+        
+        <div class="submit-area">
+            <button class="btn-submit" onclick="checkAnswer()">CEVAPLA</button>
+        </div>
+    </div>
+</div>
+
+<!-- PAUSE MODAL -->
+<div id="pause-modal" class="modal-overlay hidden">
+    <div class="setup-card" style="max-width:300px;">
+        <h2 class="title">DURAKLATILDI</h2>
+        <button class="big-start-btn" onclick="togglePause()">DEVAM ET</button>
+        <button class="big-start-btn secondary-btn" style="background:var(--danger); color:white;" onclick="quitGame()">ÇIKIŞ</button>
     </div>
 </div>
 
 <!-- RESULT SCREEN -->
 <div id="result-screen" class="screen hidden">
-    <canvas id="confetti-canvas"></canvas>
+    <canvas id="confetti-canvas" style="position:absolute; inset:0; pointer-events:none;"></canvas>
     <div style="font-size: 4rem; z-index:10; position:relative;">🏆</div>
     <h1 style="color:var(--dark); z-index:10; position:relative;">Oyun Bitti!</h1>
     
-    <div id="new-record-msg" class="hidden high-score-tag">YENİ REKOR! 🔥</div>
+    <div id="new-record-msg" class="hidden" style="background:var(--gold); padding:5px 15px; border-radius:10px; font-weight:700; color:#d35400; margin-bottom:10px; z-index:10;">YENİ REKOR! 🔥</div>
     
     <div class="result-score" id="final-score">0</div>
     
@@ -308,21 +511,49 @@
         </div>
     </div>
 
-    <button class="big-start-btn" style="max-width:300px; z-index:10; position:relative;" onclick="resetApp()">TEKRAR OYNA</button>
+    <button class="big-start-btn" style="max-width:300px; z-index:10; position:relative;" onclick="prepareGame()">TEKRAR OYNA</button>
+    <button class="big-start-btn secondary-btn" style="max-width:300px; margin-top:10px; z-index:10; position:relative; background:white;" onclick="goHome()">ANA SAYFA</button>
 </div>
 
-<div id="overlay-feedback" class="overlay-msg">HARİKA!</div>
+<div id="overlay-feedback" class="overlay-msg">DOĞRU!</div>
 
 <script>
-    // Config & State
+    // --- OYUN AYARLARI VE DURUMU ---
     let config = { diff: 1, ops: ['+', '-'], mode: 'time', device: 'tablet' };
-    let state = { score: 0, time: 60, active: false, currentQ: {}, input: '', streak: 0, correct: 0, wrong: 0 };
+    let state = { 
+        score: 0, 
+        time: 60, 
+        active: false, 
+        paused: false,
+        frozen: false,
+        currentQ: {}, 
+        input: '', 
+        streak: 0, 
+        correct: 0, 
+        wrong: 0,
+        passes: 3,
+        levelProgress: 0,
+        level: 1,
+        questionsAnswered: 0,
+        sessionTime: 0
+    };
     let timerInterval;
+    let stats = JSON.parse(localStorage.getItem('mathStats')) || { games: 0, best: 0, correct: 0, wrong: 0, totalSeconds: 0 };
+    
+    const mathFacts = [
+        "Sıfır rakamı tarihte ilk kez Hindistan'da kullanılmıştır!",
+        "Karıncaların adım sayılarını sayabildiğini biliyor muydun?",
+        "Eşittir işareti (=) 1557 yılında Robert Recorde tarafından icat edildi.",
+        "Bir pizzanın yarıçapı 'z' ve yüksekliği 'a' ise hacmi Pi x z x z x a = Pizza'dır!",
+        "4 rakamı Asya'nın bazı bölgelerinde uğursuz sayılır.",
+        "Bal petekleri altıgen şeklindedir çünkü en az balmumu ile en çok balı saklamanın yolu budur.",
+        "9 ile çarpılan her sayının rakamları toplamı 9'un katıdır."
+    ];
 
-    // Load Local Best
-    document.getElementById('local-best').textContent = localStorage.getItem('mathMasterBest') || 0;
+    // Rastgele bilgi seç
+    document.getElementById('daily-fact').textContent = mathFacts[Math.floor(Math.random() * mathFacts.length)];
 
-    // --- AUDIO SYSTEM ---
+    // --- SES SİSTEMİ ---
     let soundEnabled = true;
     let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -338,42 +569,38 @@
 
         if (type === 'click') {
             osc.type = 'triangle';
-            osc.frequency.setValueAtTime(800, now);
+            osc.frequency.setValueAtTime(600, now);
             osc.frequency.exponentialRampToValueAtTime(300, now + 0.05);
             gainNode.gain.setValueAtTime(0.05, now);
-            gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
-            osc.start(now);
-            osc.stop(now + 0.05);
+            gainNode.gain.linearRampToValueAtTime(0, now + 0.05);
+            osc.start(now); osc.stop(now + 0.05);
         } else if (type === 'correct') {
             osc.type = 'sine';
-            osc.frequency.setValueAtTime(400, now);
-            osc.frequency.exponentialRampToValueAtTime(800, now + 0.1);
+            osc.frequency.setValueAtTime(500, now);
+            osc.frequency.exponentialRampToValueAtTime(1000, now + 0.1);
             gainNode.gain.setValueAtTime(0.1, now);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
-            osc.start(now);
-            osc.stop(now + 0.3);
-        } else if (type === 'wrong') {
+            gainNode.gain.linearRampToValueAtTime(0, now + 0.3);
+            osc.start(now); osc.stop(now + 0.3);
+        } else if (type === 'wrong') { 
             osc.type = 'sawtooth';
-            osc.frequency.setValueAtTime(200, now);
-            osc.frequency.linearRampToValueAtTime(100, now + 0.2);
-            gainNode.gain.setValueAtTime(0.1, now);
-            gainNode.gain.linearRampToValueAtTime(0.01, now + 0.2);
-            osc.start(now);
-            osc.stop(now + 0.2);
-        } else if (type === 'gameover') {
-             // Simple Game Over Chord
-            [300, 250, 200].forEach((freq, i) => {
-                const o = audioCtx.createOscillator();
-                const g = audioCtx.createGain();
-                o.connect(g);
-                g.connect(audioCtx.destination);
-                o.type = 'triangle';
-                o.frequency.value = freq;
-                g.gain.setValueAtTime(0.1, now + i*0.2);
-                g.gain.exponentialRampToValueAtTime(0.001, now + i*0.2 + 0.5);
-                o.start(now + i*0.2);
-                o.stop(now + i*0.2 + 0.5);
-            });
+            osc.frequency.setValueAtTime(100, now);
+            osc.frequency.linearRampToValueAtTime(50, now + 0.4);
+            gainNode.gain.setValueAtTime(0.2, now);
+            gainNode.gain.linearRampToValueAtTime(0, now + 0.4);
+            osc.start(now); osc.stop(now + 0.4);
+        } else if (type === 'pass') {
+             osc.type = 'square';
+             osc.frequency.setValueAtTime(300, now);
+             gainNode.gain.setValueAtTime(0.05, now);
+             gainNode.gain.linearRampToValueAtTime(0, now + 0.1);
+             osc.start(now); osc.stop(now + 0.1);
+        } else if (type === 'start') {
+             osc.type = 'triangle';
+             osc.frequency.setValueAtTime(400, now);
+             osc.frequency.exponentialRampToValueAtTime(800, now + 0.3);
+             gainNode.gain.setValueAtTime(0.1, now);
+             gainNode.gain.linearRampToValueAtTime(0, now + 0.3);
+             osc.start(now); osc.stop(now + 0.3);
         }
     }
 
@@ -382,7 +609,22 @@
         document.getElementById('sound-icon').textContent = soundEnabled ? '🔊' : '🔇';
     }
 
-    // --- SETUP FUNCTIONS ---
+    // --- SCREEN TRANSITIONS ---
+    function switchScreen(fromId, toId) {
+        playSound('click');
+        const fromEl = document.getElementById(fromId);
+        const toEl = document.getElementById(toId);
+
+        fromEl.classList.add('fade-out');
+        
+        setTimeout(() => {
+            fromEl.classList.add('hidden');
+            fromEl.classList.remove('fade-out');
+            toEl.classList.remove('hidden');
+        }, 300); // Wait for CSS transition
+    }
+
+    // --- MENÜ FONKSİYONLARI ---
     function setDevice(dev, btn) {
         playSound('click');
         config.device = dev;
@@ -394,6 +636,17 @@
         playSound('click');
         config.mode = m;
         updateBtnGroup(btn);
+
+        // Show Explanation Toast
+        const toast = document.getElementById('mode-toast');
+        let msg = "";
+        if(m === 'time') msg = "⏱️ En çok doğruyu 60 saniyede yapmaya çalış!";
+        else if(m === 'count') msg = "📝 Stres yok! 20 soruyu kendi hızında çöz.";
+        else if(m === 'survival') msg = "🔥 Her doğru ek süre verir, yanlış süreni götürür!";
+        
+        toast.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
     }
 
     function setDiff(d, btn) {
@@ -421,28 +674,133 @@
         btn.classList.add('active');
     }
 
-    // --- GAME LOGIC ---
-    function startGame() {
-        if (soundEnabled && audioCtx.state === 'suspended') audioCtx.resume();
-        playSound('correct');
+    function formatTime(seconds) {
+        const h = Math.floor(seconds / 3600);
+        const m = Math.floor((seconds % 3600) / 60);
+        const s = seconds % 60;
+        if(h > 0) return `${h}s ${m}d`;
+        return `${m}dk ${s}sn`;
+    }
+
+    function showStats() {
+        switchScreen('setup-screen', 'stats-screen');
+        document.getElementById('stat-total-games').textContent = stats.games;
+        document.getElementById('stat-high-score').textContent = stats.best;
+        document.getElementById('stat-total-correct').textContent = stats.correct;
+        document.getElementById('stat-total-time').textContent = formatTime(stats.totalSeconds || 0);
+    }
+
+    // --- OYUN AKIŞI ---
+    
+    function prepareGame() {
+        switchScreen('setup-screen', 'ready-screen');
+    }
+
+    function startCountdown() {
+        playSound('click');
+        document.getElementById('ready-screen').classList.add('hidden');
+        const countEl = document.getElementById('countdown-overlay');
+        countEl.classList.remove('hidden');
         
-        state = { score: 0, time: config.mode === 'time' ? 60 : 20, active: true, input: '', streak: 0, correct: 0, wrong: 0 };
+        let count = 3;
+        countEl.textContent = count;
         
-        document.getElementById('setup-screen').classList.add('hidden');
+        let int = setInterval(() => {
+            count--;
+            if(count > 0) {
+                countEl.textContent = count;
+                playSound('click'); 
+            } else if (count === 0) {
+                countEl.textContent = "BAŞLA!";
+                playSound('start');
+            } else {
+                clearInterval(int);
+                countEl.classList.add('hidden');
+                startGameLogic();
+            }
+        }, 800);
+    }
+
+    function startGameLogic() {
+        // Reset State
+        state = { 
+            score: 0, 
+            time: config.mode === 'time' ? 60 : (config.mode === 'count' ? 20 : 20),
+            active: true, 
+            paused: false,
+            frozen: false,
+            input: '', 
+            streak: 0, 
+            correct: 0, 
+            wrong: 0,
+            passes: 3,
+            levelProgress: 0,
+            level: 1,
+            questionsAnswered: 0,
+            sessionTime: 0
+        };
+        
         document.getElementById('game-screen').classList.remove('hidden');
-        document.getElementById('result-screen').classList.add('hidden');
         
-        document.getElementById('mode-icon').textContent = config.mode === 'time' ? '⏱️' : '🔥';
+        // Set Mode Display
+        let modeIcon = '⏱️';
+        if(config.mode === 'survival') modeIcon = '🔥';
+        if(config.mode === 'count') modeIcon = '📝';
+        document.getElementById('mode-icon-display').textContent = modeIcon;
+
         updateUI();
+        updatePasUI();
+        updateProgressBar();
         nextQuestion();
         
-        // Start Timer
+        // Timer Loop
+        if (timerInterval) clearInterval(timerInterval);
         timerInterval = setInterval(() => {
-            if (!state.active) return;
-            state.time--;
-            updateUI();
-            if (state.time <= 0) endGame();
+            if (!state.active || state.paused || state.frozen) return;
+            
+            state.sessionTime++; // Total play time tracker
+
+            if (config.mode !== 'count') {
+                state.time--;
+                updateUI();
+                if (state.time <= 0) endGame();
+            }
         }, 1000);
+    }
+
+    function togglePause() {
+        if(!state.active) return;
+        state.paused = !state.paused;
+        const modal = document.getElementById('pause-modal');
+        if(state.paused) {
+            modal.classList.remove('hidden');
+        } else {
+            modal.classList.add('hidden');
+        }
+    }
+
+    function quitGame() {
+        state.active = false;
+        clearInterval(timerInterval);
+        document.getElementById('pause-modal').classList.add('hidden');
+        saveSessionStats(); // Save time even if quit
+        goHome();
+    }
+
+    function confirmHome() {
+        if(state.active) {
+            togglePause(); 
+            if(confirm("Oyundan çıkıp ana sayfaya dönmek istiyor musun?")) quitGame();
+            else togglePause(); 
+        } else {
+            quitGame();
+        }
+    }
+
+    function goHome() {
+        switchScreen('result-screen', 'setup-screen');
+        document.getElementById('game-screen').classList.add('hidden'); // Ensure game is hidden
+        document.body.style.backgroundColor = "#fdfbf7";
     }
 
     function nextQuestion() {
@@ -452,33 +810,71 @@
         const ops = config.ops;
         const op = ops[Math.floor(Math.random() * ops.length)];
         let n1, n2, ans, symbol = op;
-        const mult = config.diff * 10; // Difficulty multiplier
+        
+        // --- DIFFICULTY LOGIC ---
+        // Easy: Single digits, simple sums, basic multiplication
+        // Medium: Double digits, carrying might happen, multiplication up to 9
+        // Hard: Complex numbers, division remainders? (No remainders kept simple)
 
-        // Generate Logic
-        if (op === '+') { 
-            n1 = r(mult) + 2; n2 = r(mult) + 2; ans = n1 + n2; 
-        } else if (op === '-') { 
-            n1 = r(mult) + 5; n2 = r(n1 - 1) + 1; ans = n1 - n2; 
-        } else if (op === '*') { 
-            n1 = r(config.diff * 5) + 2; n2 = r(config.diff * 4) + 2; ans = n1 * n2; symbol = 'x'; 
-        } else { 
-            let res = r(config.diff * 4) + 2; n2 = r(config.diff * 3) + 2; n1 = res * n2; ans = res; symbol = '÷'; 
+        if (op === '+') {
+            if (config.diff === 1) { // Easy: 1-20 + 1-20
+                n1 = r(15) + 1; n2 = r(10) + 1;
+            } else if (config.diff === 2) { // Medium: 15-50 + 10-50
+                n1 = r(35) + 15; n2 = r(30) + 10;
+            } else { // Hard: 50-200 + 20-200
+                n1 = r(150) + 50; n2 = r(150) + 20;
+            }
+            ans = n1 + n2;
+        } 
+        else if (op === '-') {
+            if (config.diff === 1) { // Easy
+                n1 = r(15) + 5; n2 = r(n1 - 1) + 1;
+            } else if (config.diff === 2) { // Medium
+                n1 = r(50) + 20; n2 = r(n1 - 10) + 5;
+            } else { // Hard
+                n1 = r(150) + 50; n2 = r(n1 - 20) + 10;
+            }
+            ans = n1 - n2;
+        } 
+        else if (op === '*') {
+            symbol = 'x';
+            if (config.diff === 1) { // Easy: Tables 1-5
+                n1 = r(4) + 2; n2 = r(9) + 1;
+            } else if (config.diff === 2) { // Medium: Tables 6-9
+                n1 = r(4) + 6; n2 = r(9) + 2;
+            } else { // Hard: 2 digit * 1 digit
+                n1 = r(15) + 10; n2 = r(4) + 2;
+            }
+            ans = n1 * n2;
+        } 
+        else { // Division
+            symbol = '÷';
+             if (config.diff === 1) { // Easy: Result 1-5
+                ans = r(4) + 2; n2 = r(2) + 2; n1 = ans * n2;
+            } else if (config.diff === 2) { // Medium: Result 2-9
+                ans = r(7) + 2; n2 = r(4) + 2; n1 = ans * n2;
+            } else { // Hard: Result 5-15, Divisor 3-9
+                ans = r(10) + 5; n2 = r(6) + 3; n1 = ans * n2;
+            }
         }
 
         state.currentQ = { text: `${n1} ${symbol} ${n2}`, ans: ans };
-        document.getElementById('q-text').textContent = state.currentQ.text;
-        
-        // Dynamic Difficulty / Leveling Visuals
-        updateBackground();
+        const qEl = document.getElementById('q-text');
+        qEl.textContent = state.currentQ.text;
+        qEl.style.color = 'white'; 
     }
 
     function r(max) { return Math.floor(Math.random() * max); }
 
     function input(val) {
-        if (!state.active) return;
+        if (!state.active || state.paused || state.frozen) return;
         playSound('click');
-        if (val === 'del') state.input = '';
-        else if (state.input.length < 5) state.input += val;
+        if (val === 'del') {
+            state.input = state.input.slice(0, -1);
+        }
+        else if (state.input.length < 5) {
+            state.input += val;
+        }
         updateInputDisplay();
     }
 
@@ -489,56 +885,133 @@
         else prev.style.borderColor = "rgba(255,255,255,0.3)";
     }
 
+    function passQuestion() {
+        if (!state.active || state.paused || state.frozen) return;
+        if (state.passes > 0) {
+            playSound('pass');
+            state.passes--;
+            state.streak = 0; 
+            updatePasUI();
+            nextQuestion();
+            showFeedback("PAS GEÇTİN", "warn");
+        } else {
+            document.getElementById('btn-pas').classList.add('shake');
+            setTimeout(() => document.getElementById('btn-pas').classList.remove('shake'), 300);
+        }
+    }
+
+    function updatePasUI() {
+        const dots = document.querySelectorAll('.pas-dot');
+        dots.forEach((dot, idx) => {
+            if (idx < state.passes) dot.classList.add('active');
+            else dot.classList.remove('active');
+        });
+        if(state.passes === 0) document.getElementById('btn-pas').style.opacity = '0.5';
+        else document.getElementById('btn-pas').style.opacity = '1';
+    }
+
     function checkAnswer() {
-        if (!state.input) return;
+        if (!state.input || !state.active || state.paused || state.frozen) return;
         const val = parseInt(state.input);
         
         if (val === state.currentQ.ans) {
-            // Correct
+            // DOĞRU
             playSound('correct');
             state.correct++;
             state.streak++;
+            state.questionsAnswered++;
             
-            // Score Calculation
+            // Puanlama
             let basePoints = config.diff * 10;
-            let multiplier = Math.min(Math.floor(state.streak / 3) + 1, 5); // Max x5
+            let multiplier = Math.min(Math.floor(state.streak / 3) + 1, 5);
             state.score += basePoints * multiplier;
 
-            // Survival Bonus
+            // Mod Spesifik
             if (config.mode === 'survival') state.time += 2; 
+
+            // Level Progress
+            state.levelProgress += 20; // 5 soru = 100%
+            if (state.levelProgress >= 100) {
+                state.level++;
+                state.levelProgress = 0;
+                playSound('correct'); // Extra sound
+            }
+            updateProgressBar();
 
             showFeedback("DOĞRU!", "success");
             
-            // Visual Pop
+            // Pop Effect
             document.getElementById('q-container').classList.add('pop');
             setTimeout(()=>document.getElementById('q-container').classList.remove('pop'), 200);
 
+            updateUI();
+            
+            if (config.mode === 'count' && state.questionsAnswered >= 20) {
+                endGame();
+            } else {
+                nextQuestion();
+            }
+
         } else {
-            // Wrong
+            // YANLIŞ
             playSound('wrong');
             state.streak = 0;
             state.wrong++;
-            if (config.mode === 'survival') state.time = Math.max(0, state.time - 5); // Penalty in survival
-            
-            showFeedback("YANLIŞ!", "danger");
-            document.getElementById('q-container').classList.add('shake');
-            setTimeout(()=>document.getElementById('q-container').classList.remove('shake'), 300);
-        }
+            state.levelProgress = Math.max(0, state.levelProgress - 10);
+            updateProgressBar();
 
-        updateUI();
-        nextQuestion();
+            if (config.mode === 'survival') state.time = Math.max(0, state.time - 5);
+            
+            handleWrongAnswer();
+        }
+    }
+
+    function handleWrongAnswer() {
+        state.frozen = true;
+        updateUI(); 
+        
+        // Görsel Geri Bildirim - DONDURMA
+        showFeedback("DONDU! 🧊", "ice");
+        document.getElementById('q-container').classList.add('shake');
+        
+        // Numpad Dondurma (Bulanıklık Yok, sadece soluklaşma)
+        document.getElementById('numpad-area').classList.add('frozen-pad');
+
+        // Doğru cevabı göster
+        const qText = document.getElementById('q-text');
+        const originalText = state.currentQ.text;
+        qText.innerHTML = `${originalText} = <span style="color:var(--success)">${state.currentQ.ans}</span>`;
+
+        setTimeout(() => {
+            state.frozen = false;
+            document.getElementById('q-container').classList.remove('shake');
+            document.getElementById('numpad-area').classList.remove('frozen-pad');
+            nextQuestion();
+        }, 2000); 
+    }
+
+    function updateProgressBar() {
+        document.getElementById('progress-bar').style.width = `${state.levelProgress}%`;
+        document.getElementById('level-txt').textContent = `Seviye ${state.level}`;
+        
+        // Basit Arka Plan Değişimi
+        const colors = ["#fdfbf7", "#e3f2fd", "#e8f5e9", "#fff3e0", "#f3e5f5"];
+        document.body.style.backgroundColor = colors[(state.level - 1) % colors.length];
     }
 
     function updateUI() {
         document.getElementById('score-display').textContent = state.score;
-        document.getElementById('time-display').textContent = state.time;
-        
-        // Colorize Time
         const tDiv = document.getElementById('time-display');
-        if (state.time < 10) tDiv.style.color = 'red';
-        else tDiv.style.color = 'var(--dark)';
+        
+        if (config.mode === 'count') {
+            tDiv.textContent = `${state.questionsAnswered} / 20`;
+            tDiv.style.color = 'var(--dark)';
+        } else {
+            tDiv.textContent = state.time;
+            if (state.time < 10) tDiv.style.color = 'red';
+            else tDiv.style.color = 'var(--dark)';
+        }
 
-        // Streak Badge
         const badge = document.getElementById('streak-badge');
         if (state.streak >= 3) {
             let mult = Math.min(Math.floor(state.streak / 3) + 1, 5);
@@ -549,61 +1022,50 @@
         }
     }
 
-    function updateBackground() {
-        // Change background based on score (Ascending to Space)
-        const s = state.score;
-        const body = document.body;
-        const lvlTxt = document.getElementById('level-display');
-
-        if (s < 100) { body.style.backgroundColor = "#fdfbf7"; lvlTxt.textContent = "Seviye 1: Yeryüzü"; }
-        else if (s < 300) { body.style.backgroundColor = "#81ecec"; lvlTxt.textContent = "Seviye 2: Gökyüzü"; }
-        else if (s < 600) { body.style.backgroundColor = "#74b9ff"; lvlTxt.textContent = "Seviye 3: Stratosfer"; }
-        else if (s < 1000) { body.style.backgroundColor = "#a29bfe"; lvlTxt.textContent = "Seviye 4: Atmosfer"; }
-        else { body.style.backgroundColor = "#2d3436"; lvlTxt.textContent = "Seviye 5: Uzay Boşluğu 🚀"; lvlTxt.style.color = "white"; }
-    }
-
     function showFeedback(text, type) {
         const el = document.getElementById('overlay-feedback');
         el.textContent = text;
-        el.style.color = `var(--${type})`;
+        
+        if(type === 'success') el.style.color = 'var(--success)';
+        else if(type === 'danger') el.style.color = 'var(--danger)';
+        else if(type === 'warn') el.style.color = 'var(--warn)';
+        else if(type === 'ice') el.style.color = '#0984e3'; 
+        
         el.classList.remove('fade-up');
         void el.offsetWidth; // trigger reflow
         el.classList.add('fade-up');
+    }
+    
+    function saveSessionStats() {
+        stats.games++;
+        stats.correct += state.correct;
+        stats.wrong += state.wrong;
+        stats.totalSeconds = (stats.totalSeconds || 0) + state.sessionTime;
+        if (state.score > stats.best) {
+            stats.best = state.score;
+            document.getElementById('new-record-msg').classList.remove('hidden');
+            startConfetti();
+        } else {
+            document.getElementById('new-record-msg').classList.add('hidden');
+            if(state.score > 500) startConfetti();
+        }
+        localStorage.setItem('mathStats', JSON.stringify(stats));
     }
 
     function endGame() {
         clearInterval(timerInterval);
         state.active = false;
-        playSound('gameover');
         
-        // Check High Score
-        const oldBest = parseInt(localStorage.getItem('mathMasterBest') || 0);
-        const isNewRecord = state.score > oldBest;
-        if (isNewRecord) {
-            localStorage.setItem('mathMasterBest', state.score);
-            document.getElementById('new-record-msg').classList.remove('hidden');
-            startConfetti();
-        } else {
-            document.getElementById('new-record-msg').classList.add('hidden');
-        }
+        saveSessionStats();
 
-        document.getElementById('game-screen').classList.add('hidden');
-        document.getElementById('result-screen').classList.remove('hidden');
+        switchScreen('game-screen', 'result-screen');
         
         document.getElementById('final-score').textContent = state.score;
         document.getElementById('final-correct').textContent = state.correct;
         document.getElementById('final-wrong').textContent = state.wrong;
     }
 
-    function resetApp() {
-        document.getElementById('result-screen').classList.add('hidden');
-        document.getElementById('setup-screen').classList.remove('hidden');
-        document.getElementById('local-best').textContent = localStorage.getItem('mathMasterBest') || 0;
-        document.body.style.backgroundColor = "#fdfbf7";
-        stopConfetti();
-    }
-
-    // --- CONFETTI SYSTEM ---
+    // --- KONFETİ EFEKTİ ---
     let confettiActive = false;
     let confettiAnim;
     function startConfetti() {
@@ -618,8 +1080,7 @@
             pieces.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height - canvas.height,
-                w: Math.random() * 10 + 5,
-                h: Math.random() * 10 + 5,
+                w: Math.random() * 10 + 5, h: Math.random() * 10 + 5,
                 c: colors[Math.floor(Math.random() * colors.length)],
                 s: Math.random() * 5 + 2,
                 a: Math.random() * Math.PI * 2
@@ -631,10 +1092,8 @@
             if(!confettiActive) return;
             ctx.clearRect(0,0,canvas.width,canvas.height);
             pieces.forEach(p => {
-                p.y += p.s;
-                p.a += 0.05;
+                p.y += p.s; p.a += 0.05;
                 if(p.y > canvas.height) p.y = -20;
-                
                 ctx.save();
                 ctx.translate(p.x, p.y);
                 ctx.rotate(p.a);
@@ -645,7 +1104,9 @@
             confettiAnim = requestAnimationFrame(loop);
         }
         loop();
+        setTimeout(() => stopConfetti(), 5000); 
     }
+    
     function stopConfetti() {
         confettiActive = false;
         cancelAnimationFrame(confettiAnim);
